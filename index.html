@@ -6,8 +6,10 @@
   <title>HD הרחקת יונים | דוקרנים, רשתות ופס חשמל – בכל הארץ</title>
   <meta name="description" content="HD הרחקת יונים – 18 שנות ניסיון. דוקרנים, רשתות, פס חשמלי והגנה לפאנלים סולאריים. שירות בכל הארץ: תל אביב, רמת גן, פתח תקווה, חולון ועוד.">
   <meta name="theme-color" content="#1d4f8f">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://hd-harakat-yunim.co.il/">
+  <link rel="alternate" hreflang="he-IL" href="https://hd-harakat-yunim.co.il/">
+  <link rel="sitemap" type="application/xml" href="https://hd-harakat-yunim.co.il/sitemap.xml">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/og-default.svg">
   <meta property="og:type" content="website">
@@ -15,8 +17,13 @@
   <meta property="og:description" content="דוקרנים, רשתות, פס חשמלי והגנה לפאנלים סולאריים. 18 שנות ניסיון, אחריות 5 שנים.">
   <meta property="og:url" content="https://hd-harakat-yunim.co.il/">
   <meta property="og:image" content="https://hd-harakat-yunim.co.il/images/og-default.svg">
+  <meta property="og:image:alt" content="HD הרחקת יונים — הרחקת יונים מקצועית בכל הארץ">
   <meta property="og:site_name" content="HD הרחקת יונים">
   <meta property="og:locale" content="he_IL">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HD הרחקת יונים | שירות מקצועי בכל הארץ">
+  <meta name="twitter:description" content="דוקרנים, רשתות, פס חשמלי והגנה לפאנלים סולאריים. 18 שנות ניסיון, אחריות 5 שנים.">
+  <meta name="twitter:image" content="https://hd-harakat-yunim.co.il/images/og-default.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -27,7 +34,7 @@
   <header class="hero">
     <div class="container">
       <div class="site-header">
-        <a href="index.html" class="logo">HD הרחקת יונים</a>
+        <a href="/" class="logo">HD הרחקת יונים</a>
         <nav class="site-nav" aria-label="תפריט ראשי">
           <ul>
             <li><a href="#services">שירותים</a></li>
@@ -228,6 +235,8 @@
         <div class="faq-item"><dt>כמה זמן לוקח טיפול?</dt><dd>רוב הטיפולים מתבצעים ביום אחד, בהתאם לגודל ולמורכבות.</dd></div>
         <div class="faq-item"><dt>האם השירות פוגע ביונים?</dt><dd>לא. אנו עובדים בשיטות הומאניות שמרחיקות את היונים ללא פגיעה.</dd></div>
         <div class="faq-item"><dt>מה כוללת האחריות?</dt><dd>אחריות מלאה למשך 5 שנים על מערכות ההגנה, החומרים וההתקנה.</dd></div>
+        <div class="faq-item"><dt>באילו אזורים אתם נותנים שירות?</dt><dd>ב-74 ערים בכל הארץ — גוש דאן, השרון, ירושלים, הצפון והדרום. <a href="areas.html">לרשימה המלאה</a>.</dd></div>
+        <div class="faq-item"><dt>כמה עולה הרחקת יונים?</dt><dd>המחיר תלוי בסוג הפתרון, בגודל השטח ובמורכבות. אנו מגיעים לבדיקה ונותנים הצעת מחיר ללא התחייבות.</dd></div>
       </dl>
     </section>
 
@@ -326,14 +335,17 @@
     "@graph": [
       {
         "@type": "WebSite",
+        "@id": "https://hd-harakat-yunim.co.il/#website",
         "name": "HD הרחקת יונים",
         "url": "https://hd-harakat-yunim.co.il/",
-        "inLanguage": "he-IL"
+        "inLanguage": "he-IL",
+        "publisher": { "@id": "https://hd-harakat-yunim.co.il/#business" }
       },
       {
         "@type": "LocalBusiness",
+        "@id": "https://hd-harakat-yunim.co.il/#business",
         "name": "HD הרחקת יונים",
-        "description": "הרחקת יונים בכל הארץ – דוקרנים, רשתות, פס חשמלי והגנה לפאנלים סולאריים.",
+        "description": "הרחקת יונים בכל הארץ – דוקרנים, רשתות, פס חשמלי והגנה לפאנלים סולאריים. 18 שנות ניסיון ואחריות 5 שנים.",
         "telephone": "+972528805053",
         "email": "h_devid@walla.com",
         "url": "https://hd-harakat-yunim.co.il/",
@@ -341,6 +353,17 @@
         "priceRange": "$$",
         "address": { "@type": "PostalAddress", "addressCountry": "IL" },
         "areaServed": { "@type": "Country", "name": "Israel" },
+        "knowsAbout": ["הרחקת יונים", "דוקרני יונים", "רשתות יונים", "פס חשמלי ליונים", "הגנה לפאנלים סולאריים"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "שירותי הרחקת יונים",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "דוקרני יונים", "url": "https://hd-harakat-yunim.co.il/pigeon-spikes.html" }},
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "רשתות יונים", "url": "https://hd-harakat-yunim.co.il/bird-netting.html" }},
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "פס חשמלי ליונים", "url": "https://hd-harakat-yunim.co.il/electric-bird-deterrent.html" }},
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "הגנה לפאנלים סולאריים", "url": "https://hd-harakat-yunim.co.il/solar-panels-protection.html" }}
+          ]
+        },
         "openingHoursSpecification": {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"],
@@ -352,8 +375,28 @@
         "mainEntity": [
           { "@type": "Question", "name": "כמה זמן לוקח טיפול?", "acceptedAnswer": { "@type": "Answer", "text": "רוב הטיפולים מתבצעים ביום אחד, בהתאם לגודל ולמורכבות." }},
           { "@type": "Question", "name": "האם השירות פוגע ביונים?", "acceptedAnswer": { "@type": "Answer", "text": "לא. אנו עובדים בשיטות הומאניות שמרחיקות את היונים ללא פגיעה." }},
-          { "@type": "Question", "name": "מה כוללת האחריות?", "acceptedAnswer": { "@type": "Answer", "text": "אחריות מלאה למשך 5 שנים על מערכות ההגנה, החומרים וההתקנה." }}
+          { "@type": "Question", "name": "מה כוללת האחריות?", "acceptedAnswer": { "@type": "Answer", "text": "אחריות מלאה למשך 5 שנים על מערכות ההגנה, החומרים וההתקנה." }},
+          { "@type": "Question", "name": "באילו אזורים אתם נותנים שירות?", "acceptedAnswer": { "@type": "Answer", "text": "ב-74 ערים בכל הארץ — גוש דאן, השרון, ירושלים, הצפון והדרום." }},
+          { "@type": "Question", "name": "כמה עולה הרחקת יונים?", "acceptedAnswer": { "@type": "Answer", "text": "המחיר תלוי בסוג הפתרון, בגודל השטח ובמורכבות. אנו מגיעים לבדיקה ונותנים הצעת מחיר ללא התחייבות." }}
         ]
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "דנה" },
+        "reviewBody": "הגיעו מהר, התקנה נקייה ומסודרת. מרפסת נקייה כמו חדשה.",
+        "itemReviewed": { "@id": "https://hd-harakat-yunim.co.il/#business" }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "יוסי" },
+        "reviewBody": "חומרים איכותיים ועבודה מדויקת. שירות אדיב.",
+        "itemReviewed": { "@id": "https://hd-harakat-yunim.co.il/#business" }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "אמיר" },
+        "reviewBody": "הסבירו הכל מראש, מחיר הוגן. ממליץ בחום.",
+        "itemReviewed": { "@id": "https://hd-harakat-yunim.co.il/#business" }
       }
     ]
   }

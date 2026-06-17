@@ -6,9 +6,10 @@ $PHONE_DISPLAY=[regex]::Match($Py,'PHONE_DISPLAY = "([^"]+)"').Groups[1].Value
 $PHONE_TEL=[regex]::Match($Py,'PHONE_TEL = "([^"]+)"').Groups[1].Value
 $EMAIL=[regex]::Match($Py,'EMAIL = "([^"]+)"').Groups[1].Value
 $OG_IMAGE="$DOMAIN/images/og-default.svg"
+$OG_ALT_SUFFIX=[regex]::Match($Py,'og:image:alt" content="\{esc\(BRAND\)\} ([^"]+)"').Groups[1].Value
 $LASTMOD=(Get-Date).ToString("yyyy-MM-dd")
-function Head($title,$desc,$path){$u="$DOMAIN$path";"  <meta charset=`"UTF-8`">`n  <meta name=`"viewport`" content=`"width=device-width, initial-scale=1.0`">`n  <title>$(Esc $title)</title>`n  <meta name=`"description`" content=`"$(Esc $desc)`">`n  <meta name=`"robots`" content=`"index, follow`">`n  <meta name=`"theme-color`" content=`"#1d4f8f`">`n  <link rel=`"canonical`" href=`"$u`">`n  <link rel=`"icon`" href=`"favicon.svg`" type=`"image/svg+xml`">`n  <link rel=`"apple-touch-icon`" href=`"images/og-default.svg`">`n  <meta property=`"og:type`" content=`"website`">`n  <meta property=`"og:title`" content=`"$(Esc $title)`">`n  <meta property=`"og:description`" content=`"$(Esc $desc)`">`n  <meta property=`"og:url`" content=`"$u`">`n  <meta property=`"og:image`" content=`"$OG_IMAGE`">`n  <meta property=`"og:locale`" content=`"he_IL`">`n  <meta property=`"og:site_name`" content=`"$(Esc $BRAND)`">`n  <link rel=`"preconnect`" href=`"https://fonts.googleapis.com`">`n  <link rel=`"preconnect`" href=`"https://fonts.gstatic.com`" crossorigin>`n  <link href=`"https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap`" rel=`"stylesheet`">`n  <link rel=`"stylesheet`" href=`"styles.css`">"}
-function SiteHeader(){ $nav=[regex]::Match($Py,'nav_extra or """<ul>([\s\S]*?)</ul>"""').Groups[1].Value; $al=[regex]::Match($Py,'site-nav" aria-label="([^"]+)"').Groups[1].Value; "      <div class=`"site-header`">`n        <a href=`"index.html`" class=`"logo`">$BRAND</a>`n        <nav class=`"site-nav`" aria-label=`"$al`">`n          <ul>$nav</ul>`n        </nav>`n        <a class=`"header-cta`" href=`"tel:$PHONE_TEL`">$PHONE_DISPLAY</a>`n      </div>" }
+function Head($title,$desc,$path){$u="$DOMAIN$path";$ogAlt="$(Esc $BRAND) $OG_ALT_SUFFIX";"  <meta charset=`"UTF-8`">`n  <meta name=`"viewport`" content=`"width=device-width, initial-scale=1.0`">`n  <title>$(Esc $title)</title>`n  <meta name=`"description`" content=`"$(Esc $desc)`">`n  <meta name=`"robots`" content=`"index, follow, max-image-preview:large`">`n  <meta name=`"theme-color`" content=`"#1d4f8f`">`n  <link rel=`"canonical`" href=`"$u`">`n  <link rel=`"alternate`" hreflang=`"he-IL`" href=`"$u`">`n  <link rel=`"sitemap`" type=`"application/xml`" href=`"$DOMAIN/sitemap.xml`">`n  <link rel=`"icon`" href=`"favicon.svg`" type=`"image/svg+xml`">`n  <link rel=`"apple-touch-icon`" href=`"images/og-default.svg`">`n  <meta property=`"og:type`" content=`"website`">`n  <meta property=`"og:title`" content=`"$(Esc $title)`">`n  <meta property=`"og:description`" content=`"$(Esc $desc)`">`n  <meta property=`"og:url`" content=`"$u`">`n  <meta property=`"og:image`" content=`"$OG_IMAGE`">`n  <meta property=`"og:image:alt`" content=`"$ogAlt`">`n  <meta property=`"og:locale`" content=`"he_IL`">`n  <meta property=`"og:site_name`" content=`"$(Esc $BRAND)`">`n  <meta name=`"twitter:card`" content=`"summary_large_image`">`n  <meta name=`"twitter:title`" content=`"$(Esc $title)`">`n  <meta name=`"twitter:description`" content=`"$(Esc $desc)`">`n  <meta name=`"twitter:image`" content=`"$OG_IMAGE`">`n  <link rel=`"preconnect`" href=`"https://fonts.googleapis.com`">`n  <link rel=`"preconnect`" href=`"https://fonts.gstatic.com`" crossorigin>`n  <link href=`"https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap`" rel=`"stylesheet`">`n  <link rel=`"stylesheet`" href=`"styles.css`">"}
+function SiteHeader(){ $nav=[regex]::Match($Py,'nav_extra or """<ul>([\s\S]*?)</ul>"""').Groups[1].Value; $al=[regex]::Match($Py,'site-nav" aria-label="([^"]+)"').Groups[1].Value; "      <div class=`"site-header`">`n        <a href=`"/`" class=`"logo`">$BRAND</a>`n        <nav class=`"site-nav`" aria-label=`"$al`">`n          <ul>$nav</ul>`n        </nav>`n        <a class=`"header-cta`" href=`"tel:$PHONE_TEL`">$PHONE_DISPLAY</a>`n      </div>" }
 function Breadcrumbs($items){$al=[regex]::Match($Py,'class="breadcrumbs" aria-label="([^"]+)"').Groups[1].Value;$sep=[char]0x203A;$p=@("<nav class=`"breadcrumbs`" aria-label=`"$al`">");for($i=0;$i -lt $items.Count;$i++){if($i -gt 0){$p+="<span class=`"bc-sep`" aria-hidden=`"true`">$sep</span>"};if($i -eq $items.Count-1){$p+="<span aria-current=`"page`">$(Esc $items[$i][0])</span>"}else{$p+="<a href=`"$($items[$i][1])`">$(Esc $items[$i][0])</a>"}};$p+='</nav>'; $p -join "`n      "}
 function JL($o){$o|ConvertTo-Json -Depth 12 -Compress}
 function BcSchema($items){$el=@();$pos=1;foreach($it in $items){$el+=@{ '@type'='ListItem';position=$pos;name=$it[0];item=$(if($it[1].StartsWith('/')){"$DOMAIN$($it[1])"}else{$it[1]})};$pos++}; JL @{ '@context'='https://schema.org';'@type'='BreadcrumbList';itemListElement=$el}}
@@ -33,7 +34,7 @@ function RenderCity($city,$rn,$rid,$rc){
   $titleTpl=[regex]::Match($Py,'title = f"((?:\\.|[^"\\])*)"').Groups[1].Value
   $title=$titleTpl.Replace('{name}',$name).Replace('{BRAND}',$BRAND)
   $desc=CityMeta $name $text;$rb=$BLURBS[$rid];$faq=CityFaq $name;$near=Nearby $rc $file
-  $bch=@(@([regex]::Match($Py,'bc_html = \[\("([^"]+)"').Groups[1].Value,'index.html'),@([regex]::Match($Py,', \("([^"]+)", "areas.html"\)').Groups[1].Value,'areas.html'),@($name,$file))
+  $bch=@(@([regex]::Match($Py,'bc_html = \[\("([^"]+)"').Groups[1].Value,'/'),@([regex]::Match($Py,', \("([^"]+)", "areas.html"\)').Groups[1].Value,'areas.html'),@($name,$file))
   $bcs=@(@($bch[0][0],'/'),@($bch[1][0],'/areas.html'),@($name,$path))
   $h=$cityTpl
   $h=$h.Replace('{head_block(title, description, path)}',(Head $title $desc $path))
@@ -52,7 +53,7 @@ function GetPyPairs($b,$k){$m=[regex]::Match($b,'"'+[regex]::Escape($k)+'":\s*\[
 function GetSvc($f){$st=[regex]::Match($Py,'\{\s*"file":\s*"'+[regex]::Escape($f)+'"').Index;$d=0;for($i=$st;$i -lt $Py.Length;$i++){if($Py[$i]-eq '{'){$d++}elseif($Py[$i]-eq '}'){$d--;if($d-eq 0){break}}};$b=$Py.Substring($st,$i-$st+1);[pscustomobject]@{file=$f;slug=GetPyStr $b 'slug';h1=GetPyStr $b 'h1';title=GetPyStr $b 'title';description=GetPyStr $b 'description';subtitle=GetPyStr $b 'subtitle';service_name=GetPyStr $b 'service_name';content=(GetPyList $b 'content');h2=GetPyStr $b 'h2';process=(GetPyList $b 'process');faq=(GetPyPairs $b 'faq');image_alt=GetPyStr $b 'image_alt';links=(GetPyPairs $b 'links')}}
 function RenderSvc($svc){
   $path=$svc.slug
-  $bch=@(@([regex]::Match($Py,'bc_html = \[\("([^"]+)"').Groups[1].Value,'index.html'),@('שירותים','index.html#services'),@($svc.h1,$svc.file))
+  $bch=@(@([regex]::Match($Py,'bc_html = \[\("([^"]+)"').Groups[1].Value,'/'),@('שירותים','/#services'),@($svc.h1,$svc.file))
   $bcs=@(@($bch[0][0],'/'),@('שירותים','/#services'),@($svc.h1,$path))
   $lh=($svc.links|%{ "<a href=`"$($_[0])`">$(Esc $_[1])</a>"})-join ' · '
   $ph=($svc.process|%{ "            <li>$(Esc $_)</li>"})-join "`n"
@@ -72,12 +73,12 @@ function RenderAreas($regions){
   $title=([regex]::Match($Py,'def render_areas_page[\s\S]*?title = f"([^"]+)"').Groups[1].Value).Replace('{BRAND}',$BRAND)
   $descM=[regex]::Match($Py,'def render_areas_page[\s\S]*?description = \(\s*"([^"]+)"\s*\n\s*"([^"]+)"')
   $desc= if($descM.Success){ ($descM.Groups[1].Value + ' ' + $descM.Groups[2].Value).Trim() } else { ([regex]::Match($Py,'def render_areas_page[\s\S]*?description = \(\s*"([^"]+)"').Groups[1].Value) }
-  $bcHome=([regex]::Match($Py,'bc_html = \[\("([^"]+)", "index.html"\)')).Groups[1].Value
+  $bcHome=([regex]::Match($Py,'bc_html = \[\("([^"]+)", "/"')).Groups[1].Value
   $bcAreas=([regex]::Match($Py,',\s*\("([^"]+)", "areas.html"\)\]')).Groups[1].Value
   $secs=@(); foreach($r in $regions){$ln=($r.cities|%{ "            <a href=`"$($_.file)`">$(Esc $_.name)</a>"})-join "`n";$secs+="    <section class=`"container section region-block`">`n      <h2 class=`"section-title-bar`">$(Esc $r.name)</h2>`n      <nav class=`"city-links`" aria-label=`"$(Esc $r.name)`">`n$ln`n      </nav>`n    </section>"}
   $h=$areasTpl
   $h=$h.Replace('{head_block(title, description, path)}',(Head $title $desc '/areas.html'))
-  $h=$h.Replace('{site_header()}',(SiteHeader)).Replace('{breadcrumbs(bc_html)}',(Breadcrumbs @(@($bcHome,'index.html'),@($bcAreas,'areas.html'))))
+  $h=$h.Replace('{site_header()}',(SiteHeader)).Replace('{breadcrumbs(bc_html)}',(Breadcrumbs @(@($bcHome,'/'),@($bcAreas,'areas.html'))))
   $h=$h.Replace('{chr(10).join(sections)}',($secs-join "`n")).Replace('{footer_block()}',(Footer)).Replace('{sticky_bar()}',(Sticky))
   $h=$h.Replace('{breadcrumb_schema(bc_schema)}',(BcSchema @(@($bcHome,'/'),@($bcAreas,'/areas.html')))).Replace('{BRAND}',$BRAND)
   $h

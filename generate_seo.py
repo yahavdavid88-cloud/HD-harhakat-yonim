@@ -56,9 +56,11 @@ def head_block(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(description)}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#1d4f8f">
   <link rel="canonical" href="{url}">
+  <link rel="alternate" hreflang="he-IL" href="{url}">
+  <link rel="sitemap" type="application/xml" href="{DOMAIN}/sitemap.xml">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/og-default.svg">
   <meta property="og:type" content="{og_type}">
@@ -66,8 +68,13 @@ def head_block(
   <meta property="og:description" content="{esc(description)}">
   <meta property="og:url" content="{url}">
   <meta property="og:image" content="{OG_IMAGE}">
+  <meta property="og:image:alt" content="{esc(BRAND)} — הרחקת יונים מקצועית בכל הארץ">
   <meta property="og:locale" content="he_IL">
   <meta property="og:site_name" content="{esc(BRAND)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{esc(title)}">
+  <meta name="twitter:description" content="{esc(description)}">
+  <meta name="twitter:image" content="{OG_IMAGE}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -76,12 +83,12 @@ def head_block(
 
 def site_header(nav_extra: str = "") -> str:
     nav = nav_extra or """<ul>
-            <li><a href="index.html#services">שירותים</a></li>
+            <li><a href="/#services">שירותים</a></li>
             <li><a href="areas.html">אזורים</a></li>
-            <li><a href="index.html#contact-form">הצעת מחיר</a></li>
+            <li><a href="/#contact-form">הצעת מחיר</a></li>
           </ul>"""
     return f"""      <div class="site-header">
-        <a href="index.html" class="logo">{BRAND}</a>
+        <a href="/" class="logo">{BRAND}</a>
         <nav class="site-nav" aria-label="תפריט ראשי">
           {nav}
         </nav>
@@ -201,7 +208,7 @@ def footer_block() -> str:
     return f"""  <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
-        <p>{BRAND} | <a href="index.html">עמוד ראשי</a> · <a href="areas.html">כל האזורים</a> · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
+        <p>{BRAND} | <a href="/">עמוד ראשי</a> · <a href="areas.html">כל האזורים</a> · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
       </div>
     </div>
   </footer>"""
@@ -293,7 +300,7 @@ def render_city_page(city: dict, region_name: str, region_id: str, region_cities
         (f"כמה זמן לוקח שירות ב{name}?", "רוב ההתקנות מתבצעות ביום אחד, בהתאם להיקף העבודה."),
         ("האם הפתרונות הומאניים?", "בהחלט. אנו משתמשים בשיטות הרחקה שלא פוגעות ביונים — דוקרנים, רשתות ופס חשמלי בטוח."),
     ]
-    bc_html = [("דף הבית", "index.html"), ("אזורים", "areas.html"), (name, file)]
+    bc_html = [("דף הבית", "/"), ("אזורים", "areas.html"), (name, file)]
     bc_schema = [("דף הבית", "/"), ("אזורים", "/areas.html"), (name, path)]
 
     return f"""<!DOCTYPE html>
@@ -477,7 +484,7 @@ SERVICE_PAGES = [
 
 def render_service_page(svc: dict) -> str:
     path = svc["slug"]
-    bc_html = [("דף הבית", "index.html"), ("שירותים", "index.html#services"), (svc["h1"], svc["file"])]
+    bc_html = [("דף הבית", "/"), ("שירותים", "/#services"), (svc["h1"], svc["file"])]
     bc_schema = [("דף הבית", "/"), ("שירותים", "/#services"), (svc["h1"], path)]
     links_html = " · ".join(f'<a href="{f}">{esc(label)}</a>' for f, label in svc["links"])
     process_html = "\n".join(f"            <li>{esc(step)}</li>" for step in svc["process"])
@@ -500,7 +507,7 @@ def render_service_page(svc: dict) -> str:
         <p class="subtitle">{esc(svc["subtitle"])}</p>
         <div class="hero-buttons">
           <a class="button primary" href="tel:{PHONE_TEL}">התקשר עכשיו</a>
-          <a class="button secondary" href="index.html#contact-form">הצעת מחיר</a>
+          <a class="button secondary" href="/#contact-form">הצעת מחיר</a>
         </div>
       </div>
     </div>
@@ -555,7 +562,7 @@ def render_areas_page(regions: list) -> str:
         "דוקרנים, רשתות, פס חשמלי והגנה לפאנלים. אחריות 5 שנים."
     )
     path = "/areas.html"
-    bc_html = [("דף הבית", "index.html"), ("כל הערים והאזורים", "areas.html")]
+    bc_html = [("דף הבית", "/"), ("כל הערים והאזורים", "areas.html")]
     bc_schema = [("דף הבית", "/"), ("כל הערים והאזורים", path)]
     sections = []
     for region in regions:
@@ -592,7 +599,7 @@ def render_areas_page(regions: list) -> str:
   <main id="main-content">
 {chr(10).join(sections)}
     <section class="container section">
-      <p class="section-subtitle"><a class="button secondary" href="index.html#contact-form">הצעת מחיר לכל הארץ</a></p>
+      <p class="section-subtitle"><a class="button secondary" href="/#contact-form">הצעת מחיר לכל הארץ</a></p>
     </section>
   </main>
 {footer_block()}
