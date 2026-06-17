@@ -1,0 +1,10 @@
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.vscode/
+
+# Local build artifacts (optional dev only)
+_build_seo.ps1
+SeoGen.cs

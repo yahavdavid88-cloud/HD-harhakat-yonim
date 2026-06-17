@@ -70,13 +70,16 @@ function RenderSvc($svc){
 }
 function RenderAreas($regions){
   $title=([regex]::Match($Py,'def render_areas_page[\s\S]*?title = f"([^"]+)"').Groups[1].Value).Replace('{BRAND}',$BRAND)
-  $desc=([regex]::Match($Py,'def render_areas_page[\s\S]*?description = \(\s*"([^"]+)"').Groups[1].Value)
+  $descM=[regex]::Match($Py,'def render_areas_page[\s\S]*?description = \(\s*"([^"]+)"\s*\n\s*"([^"]+)"')
+  $desc= if($descM.Success){ ($descM.Groups[1].Value + ' ' + $descM.Groups[2].Value).Trim() } else { ([regex]::Match($Py,'def render_areas_page[\s\S]*?description = \(\s*"([^"]+)"').Groups[1].Value) }
+  $bcHome=([regex]::Match($Py,'bc_html = \[\("([^"]+)", "index.html"\)')).Groups[1].Value
+  $bcAreas=([regex]::Match($Py,',\s*\("([^"]+)", "areas.html"\)\]')).Groups[1].Value
   $secs=@(); foreach($r in $regions){$ln=($r.cities|%{ "            <a href=`"$($_.file)`">$(Esc $_.name)</a>"})-join "`n";$secs+="    <section class=`"container section region-block`">`n      <h2 class=`"section-title-bar`">$(Esc $r.name)</h2>`n      <nav class=`"city-links`" aria-label=`"$(Esc $r.name)`">`n$ln`n      </nav>`n    </section>"}
   $h=$areasTpl
   $h=$h.Replace('{head_block(title, description, path)}',(Head $title $desc '/areas.html'))
-  $h=$h.Replace('{site_header()}',(SiteHeader)).Replace('{breadcrumbs(bc_html)}',(Breadcrumbs @(@([regex]::Match($Py,'bc_html = \[\("([^"]+)"').Groups[1].Value,'index.html'),@('כל האזורים והערים','areas.html'))))
+  $h=$h.Replace('{site_header()}',(SiteHeader)).Replace('{breadcrumbs(bc_html)}',(Breadcrumbs @(@($bcHome,'index.html'),@($bcAreas,'areas.html'))))
   $h=$h.Replace('{chr(10).join(sections)}',($secs-join "`n")).Replace('{footer_block()}',(Footer)).Replace('{sticky_bar()}',(Sticky))
-  $h=$h.Replace('{breadcrumb_schema(bc_schema)}',(BcSchema @(@([regex]::Match($Py,'bc_html = \[\("([^"]+)"').Groups[1].Value,'/'),@('כל האזורים והערים','/areas.html')))).Replace('{BRAND}',$BRAND)
+  $h=$h.Replace('{breadcrumb_schema(bc_schema)}',(BcSchema @(@($bcHome,'/'),@($bcAreas,'/areas.html')))).Replace('{BRAND}',$BRAND)
   $h
 }
 $data=Get-Content (Join-Path $Base 'cities.json') -Raw -Encoding UTF8|ConvertFrom-Json
