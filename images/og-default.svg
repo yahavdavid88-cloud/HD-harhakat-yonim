@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="HD дшзчъ йерйн">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4f8f"/>
+      <stop offset="55%" stop-color="#10305d"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="980" cy="120" r="180" fill="#ffffff" opacity="0.04"/>
+  <circle cx="200" cy="520" r="140" fill="#ffffff" opacity="0.04"/>
+  <text x="600" y="250" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800" fill="#ffffff">HD дшзчъ йерйн</text>
+  <text x="600" y="330" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="36" fill="#c8d8ef">гечшрйн З шщъеъ З фс зщомй З фармйн семашййн</text>
+  <text x="600" y="410" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="700" fill="#e74c3c">052-880-5053</text>
+  <text x="600" y="470" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#8fb4e8">18 щреъ рйсйеп | азшйеъ 5 щрйн | лм дашх</text>
+</svg>
